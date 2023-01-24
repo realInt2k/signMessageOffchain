@@ -1,0 +1,116 @@
+@keyframes float {
+	0% {
+		box-shadow: 0 5px 15px 0px rgba(0,0,0,0.6);
+		transform: translatey(0px);
+	}
+	50% {
+		box-shadow: 0 25px 15px 0px rgba(0,0,0,0.2);
+		transform: translateY((random(20))+px);
+	}
+	100% {
+		box-shadow: 0 5px 15px 0px rgba(0,0,0,0.6);
+		transform: translatey(0px);
+	}
+}
+
+.foatDiv {
+	overflow: hidden;
+}
+
+.foatDivMobile {
+	overflow: hidden;
+}
+
+@for $i from 1 through 9{
+  .foatDivMobile:nth-child(n+#{$i}){
+    animation-name: animateMobile#{$i};
+    animation-duration: 3+random(3)+s;
+    animation-iteration-count: infinite;
+    border-radius: 10px;
+    border-style: inset;
+  }
+}
+
+
+@for $i from 1 through 9{
+  .foatDiv:nth-child(n+#{$i}){
+    animation-name: animate#{$i};
+    animation-duration: 3+random(3)+s;
+    animation-iteration-count: infinite;
+    border-width: 2px;
+    border-style: solid;
+    border-top-color: #c140d834;
+  }
+}
+
+@for $i from 1 through 9{
+  .foatDiv:nth-child(n+#{$i}):hover{
+    -webkit-box-shadow:0 0 20px rgb(255, 0, 200); 
+    -moz-box-shadow: 0 0 20px rgb(255, 0, 179); 
+    box-shadow:0 0 20px rgb(238, 0, 255);
+    transition: 0.5s;
+    scale: 150%;
+    z-index: 100;
+    cursor: pointer;
+  }
+}
+
+$bodyBg: #141414;
+$color1: #f167f1;
+$color2: #ffb9fc;
+$color3: #ffffff;
+$color4: #93d290;
+$color5: #f153d4;
+
+@for $i from 1 through 9{
+  @keyframes animate#{$i} {
+    0%{
+      color: $color1
+    }
+    25%{
+      color: $color2;
+      transform: rotate(random($i)*(-1)+deg) translateY((random(10))+px) translateX(random(10)+px);
+      // opacity: random(10) * 0.1;
+    }
+    50%{
+      color: $color3;
+      transform: rotate(random($i)*(-1)+deg)  translateY((random(10))+px) translateX(random(10)+px);
+      // opacity: random(10) * 0.1;
+    }
+    75%{
+      color: $color4;
+      transform: rotate(random($i)*(0.5)+deg)  translateY((random(10))+px) translateX(random(10)+px);
+      // opacity: random(10) * 0.1;
+    }
+    100%{
+      color: $color5;
+    }
+  }
+}
+
+@for $i from 1 through 9{
+  @keyframes animateMobile#{$i} {
+    0%{
+      color: $color1
+    }
+    25%{
+      color: $color2;
+      transform: rotate(random(2)*(-1)+deg) translateX(random(5)+px);
+      // opacity: random(10) * 0.1;
+    }
+    50%{
+      color: $color3;
+      transform: rotate(random(2)*(-1)+deg) translateX(random(5)+px);
+      // opacity: random(10) * 0.1;
+    }
+    75%{
+      color: $color4;
+      transform: rotate(random(3)*(0.5)+deg) translateX(random(5)*(-1)+px);
+      // opacity: random(10) * 0.1;
+    }
+    100%{
+      color: $color5;
+    }
+  }
+}
+
