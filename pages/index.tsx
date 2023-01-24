@@ -11,7 +11,7 @@ import Footer from "@components/footer";
 
 const Index: NextPage = () => {
   return (
-    <Box id="fabulous">
+    <Box>
       <Stack>
         <Box component="main">
           <Toolbar />

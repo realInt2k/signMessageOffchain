@@ -38,7 +38,7 @@ export const Welcome: NextPage = () => {
   const { height, width } = useWindowDimensions();
 
   return (
-    <TabViewerTemplate header="Welcome to my page 😸" >
+    <TabViewerTemplate header="test multisig" >
       <Typography paragraph variant="h6">
         example {" "}
         {<span style={{ color: "yellow" }}> multi sig </span>}

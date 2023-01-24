@@ -97,28 +97,8 @@ body {
     rgb(var(--background-start-rgb));
 }
 
-a {
-  color: #CE93D8;
-  text-decoration: none;
-}
-
-#purple {
-  color: #CE93D8
-}
-
-#fabulous {
-  background: rgb(26, 188, 156);
-	background: -moz-linear-gradient(-45deg, rgb(35, 12, 33) 20%, rgb(12, 0, 11) 60%);
-	background: -webkit-linear-gradient(-45deg,rgb(35, 12, 33) 20%, rgb(12, 0, 11) 60%);
-	background: linear-gradient(220deg, rgb(35, 12, 33) 20%, rgb(12, 0, 11) 60%);
-}
-
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
   }
-}
-
-.MuiSpeedDial-fab:hover {
-  background-color: #bd1c9ff3 !important;
 }
