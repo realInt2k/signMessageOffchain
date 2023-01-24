@@ -1,0 +1,40 @@
+{
+  "_format": "hh-sol-cache-2",
+  "files": {
+    "D:\\docs\\nodeApps\\signMessageOffchain\\solidity\\contracts\\verifier.sol": {
+      "lastModificationDate": 1674531699612,
+      "contentHash": "e5d0c3a866a80911481d1baf3b1321e6",
+      "sourceName": "contracts/verifier.sol",
+      "solcConfig": {
+        "version": "0.8.13",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.13"
+      ],
+      "artifacts": [
+        "Verifier"
+      ]
+    }
+  }
+}
