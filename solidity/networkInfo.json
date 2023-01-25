@@ -1,0 +1,12 @@
+{
+  "ganache": {
+    "Verifier": "0x0C0E2287cf10EEb7e16644470862A350432900B4",
+    "LocalHoarder": "0x8508D931bc4b48DA9B40fD856A298853B22f77c5",
+    "TargetContract": "0x7F51b87A0C015046C926766716C8AAdCa71b459f"
+  },
+  "klaytn": {
+    "Verifier": "0xD772f29461c93414487bCFd8A103c4326EA194B2",
+    "LocalHoarder": "0x02C11575fc1AC5c2Ff74280775D75A8fd882d6d2",
+    "TargetContract": "0xC8004eae4AfACB64c7d6A99878C8b7bbCc597559"
+  }
+}

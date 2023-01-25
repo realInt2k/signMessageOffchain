@@ -1,0 +1,570 @@
+[
+    {
+        "inputs": [
+            {
+                "internalType": "address[]",
+                "name": "_signedComputers",
+                "type": "address[]"
+            }
+        ],
+        "stateMutability": "nonpayable",
+        "type": "constructor"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": false,
+                "internalType": "bytes32",
+                "name": "",
+                "type": "bytes32"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint8",
+                "name": "",
+                "type": "uint8"
+            },
+            {
+                "indexed": false,
+                "internalType": "bytes32",
+                "name": "",
+                "type": "bytes32"
+            },
+            {
+                "indexed": false,
+                "internalType": "bytes32",
+                "name": "",
+                "type": "bytes32"
+            }
+        ],
+        "name": "errorNoSigner",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": false,
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "name": "errorWrongAddress",
+        "type": "event"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "bytes32",
+                "name": "_hashedMessage",
+                "type": "bytes32"
+            },
+            {
+                "internalType": "uint8",
+                "name": "_v",
+                "type": "uint8"
+            },
+            {
+                "internalType": "bytes32",
+                "name": "_r",
+                "type": "bytes32"
+            },
+            {
+                "internalType": "bytes32",
+                "name": "_s",
+                "type": "bytes32"
+            }
+        ],
+        "name": "Message",
+        "outputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "bytes32",
+                "name": "txBatchData",
+                "type": "bytes32"
+            },
+            {
+                "internalType": "uint8[]",
+                "name": "_v",
+                "type": "uint8[]"
+            },
+            {
+                "internalType": "bytes32[]",
+                "name": "_r",
+                "type": "bytes32[]"
+            },
+            {
+                "internalType": "bytes32[]",
+                "name": "_s",
+                "type": "bytes32[]"
+            }
+        ],
+        "name": "Verify",
+        "outputs": [
+            {
+                "internalType": "bool",
+                "name": "",
+                "type": "bool"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address[]",
+                "name": "contractAddrArray",
+                "type": "address[]"
+            },
+            {
+                "internalType": "bytes[]",
+                "name": "txArray",
+                "type": "bytes[]"
+            }
+        ],
+        "name": "executeTransactions",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "bytes",
+                "name": "txBatchData",
+                "type": "bytes"
+            }
+        ],
+        "name": "hello",
+        "outputs": [
+            {
+                "internalType": "bytes",
+                "name": "",
+                "type": "bytes"
+            }
+        ],
+        "stateMutability": "pure",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "bytes32",
+                "name": "txBatchData",
+                "type": "bytes32"
+            },
+            {
+                "internalType": "uint8[]",
+                "name": "_v",
+                "type": "uint8[]"
+            },
+            {
+                "internalType": "bytes32[]",
+                "name": "_r",
+                "type": "bytes32[]"
+            },
+            {
+                "internalType": "bytes32[]",
+                "name": "_s",
+                "type": "bytes32[]"
+            }
+        ],
+        "name": "reVerify",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "name": "signedComputers",
+        "outputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "gethBlockNumber",
+                "type": "uint256"
+            }
+        ],
+        "name": "allSignatureReceived",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": false,
+                "internalType": "bytes",
+                "name": "txData",
+                "type": "bytes"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "gethBlockNumber",
+                "type": "uint256"
+            }
+        ],
+        "name": "proposeNewBatchEvent",
+        "type": "event"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "name": "computerToUnsignedGethBlocks",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "gethBlockNumber",
+                "type": "uint256"
+            }
+        ],
+        "name": "getAllR",
+        "outputs": [
+            {
+                "internalType": "bytes32[]",
+                "name": "",
+                "type": "bytes32[]"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "gethBlockNumber",
+                "type": "uint256"
+            }
+        ],
+        "name": "getAllS",
+        "outputs": [
+            {
+                "internalType": "bytes32[]",
+                "name": "",
+                "type": "bytes32[]"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "gethBlockNumber",
+                "type": "uint256"
+            }
+        ],
+        "name": "getAllV",
+        "outputs": [
+            {
+                "internalType": "uint8[]",
+                "name": "",
+                "type": "uint8[]"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "getGethBlocksToBeSend",
+        "outputs": [
+            {
+                "internalType": "uint256[]",
+                "name": "",
+                "type": "uint256[]"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "gethBlock",
+                "type": "uint256"
+            }
+        ],
+        "name": "getProposalTxDataFromGethBlock",
+        "outputs": [
+            {
+                "internalType": "bytes",
+                "name": "",
+                "type": "bytes"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "computer",
+                "type": "address"
+            }
+        ],
+        "name": "getUnsignedGethBlocks",
+        "outputs": [
+            {
+                "internalType": "uint256[]",
+                "name": "",
+                "type": "uint256[]"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "name": "gethBlockNumberToAllSignatures",
+        "outputs": [
+            {
+                "internalType": "uint8",
+                "name": "v",
+                "type": "uint8"
+            },
+            {
+                "internalType": "bytes32",
+                "name": "r",
+                "type": "bytes32"
+            },
+            {
+                "internalType": "bytes32",
+                "name": "s",
+                "type": "bytes32"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "name": "gethBlocksToBeSend",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "bytes[]",
+                "name": "txDataBatch",
+                "type": "bytes[]"
+            },
+            {
+                "internalType": "address[]",
+                "name": "targetContractAddresses",
+                "type": "address[]"
+            },
+            {
+                "internalType": "uint256",
+                "name": "gethBlockNumber",
+                "type": "uint256"
+            }
+        ],
+        "name": "proposeNewBatch",
+        "outputs": [
+            {
+                "internalType": "bytes",
+                "name": "",
+                "type": "bytes"
+            }
+        ],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "computer",
+                "type": "address"
+            },
+            {
+                "internalType": "uint8",
+                "name": "_v",
+                "type": "uint8"
+            },
+            {
+                "internalType": "bytes32",
+                "name": "_r",
+                "type": "bytes32"
+            },
+            {
+                "internalType": "bytes32",
+                "name": "_s",
+                "type": "bytes32"
+            },
+            {
+                "internalType": "uint256",
+                "name": "gethBlockNumber",
+                "type": "uint256"
+            }
+        ],
+        "name": "sendSignature",
+        "outputs": [
+            {
+                "internalType": "string",
+                "name": "",
+                "type": "string"
+            }
+        ],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "gethBlock",
+                "type": "uint256"
+            }
+        ],
+        "name": "sentGethBlock",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "name": "a",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "v",
+                "type": "uint256"
+            }
+        ],
+        "name": "append",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "i",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "v",
+                "type": "uint256"
+            }
+        ],
+        "name": "change",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "getA",
+        "outputs": [
+            {
+                "internalType": "uint256[]",
+                "name": "",
+                "type": "uint256[]"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    }
+]

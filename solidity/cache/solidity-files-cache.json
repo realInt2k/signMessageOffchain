@@ -2,8 +2,8 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "D:\\docs\\nodeApps\\signMessageOffchain\\solidity\\contracts\\verifier.sol": {
-      "lastModificationDate": 1674531699612,
-      "contentHash": "e5d0c3a866a80911481d1baf3b1321e6",
+      "lastModificationDate": 1674623319130,
+      "contentHash": "78d77cbfc7341ec7fdaa09b47617db2a",
       "sourceName": "contracts/verifier.sol",
       "solcConfig": {
         "version": "0.8.13",
@@ -34,6 +34,78 @@
       ],
       "artifacts": [
         "Verifier"
+      ]
+    },
+    "D:\\docs\\nodeApps\\signMessageOffchain\\solidity\\contracts\\localHoarder.sol": {
+      "lastModificationDate": 1674592654077,
+      "contentHash": "bf83ac13dab95687dec501b5a4d84d7c",
+      "sourceName": "contracts/localHoarder.sol",
+      "solcConfig": {
+        "version": "0.8.13",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./verifier.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.13"
+      ],
+      "artifacts": [
+        "LocalHoarder"
+      ]
+    },
+    "D:\\docs\\nodeApps\\signMessageOffchain\\solidity\\contracts\\targetContract.sol": {
+      "lastModificationDate": 1674556975768,
+      "contentHash": "f8309a547f0a4e5f74d9c9c601821ed5",
+      "sourceName": "contracts/targetContract.sol",
+      "solcConfig": {
+        "version": "0.8.13",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.13"
+      ],
+      "artifacts": [
+        "TargetContract"
       ]
     }
   }

@@ -2,6 +2,61 @@
   {
     "inputs": [
       {
+        "internalType": "address[]",
+        "name": "_signedComputers",
+        "type": "address[]"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint8",
+        "name": "",
+        "type": "uint8"
+      },
+      {
+        "indexed": false,
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+      },
+      {
+        "indexed": false,
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "name": "errorNoSigner",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "name": "errorWrongAddress",
+    "type": "event"
+  },
+  {
+    "inputs": [
+      {
         "internalType": "bytes32",
         "name": "_hashedMessage",
         "type": "bytes32"
@@ -22,7 +77,7 @@
         "type": "bytes32"
       }
     ],
-    "name": "VerifyMessage",
+    "name": "Message",
     "outputs": [
       {
         "internalType": "address",
@@ -30,7 +85,125 @@
         "type": "address"
       }
     ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "txBatchData",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "uint8[]",
+        "name": "_v",
+        "type": "uint8[]"
+      },
+      {
+        "internalType": "bytes32[]",
+        "name": "_r",
+        "type": "bytes32[]"
+      },
+      {
+        "internalType": "bytes32[]",
+        "name": "_s",
+        "type": "bytes32[]"
+      }
+    ],
+    "name": "Verify",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address[]",
+        "name": "contractAddrArray",
+        "type": "address[]"
+      },
+      {
+        "internalType": "bytes[]",
+        "name": "txArray",
+        "type": "bytes[]"
+      }
+    ],
+    "name": "executeTransactions",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes",
+        "name": "txBatchData",
+        "type": "bytes"
+      }
+    ],
+    "name": "hello",
+    "outputs": [
+      {
+        "internalType": "bytes",
+        "name": "",
+        "type": "bytes"
+      }
+    ],
     "stateMutability": "pure",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "txBatchData",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "uint8[]",
+        "name": "_v",
+        "type": "uint8[]"
+      },
+      {
+        "internalType": "bytes32[]",
+        "name": "_r",
+        "type": "bytes32[]"
+      },
+      {
+        "internalType": "bytes32[]",
+        "name": "_s",
+        "type": "bytes32[]"
+      }
+    ],
+    "name": "reVerify",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "signedComputers",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
     "type": "function"
   }
 ]

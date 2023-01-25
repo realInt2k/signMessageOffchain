@@ -5,6 +5,8 @@ import { persistReducer, persistStore } from "redux-persist";
 import thunk from "redux-thunk";
 import createWebStorage from "redux-persist/lib/storage/createWebStorage";
 import {SnackBarSlice} from './snackBarSlice';
+import {GethSlice} from './gethSlice';
+import {LocalComputerSlice} from './localComputersSlice';
 //That error happens because you want to create the localstorage object on the server side, so that's the reason for warning.
 const createNoopStorage = () => {
   return {
@@ -34,16 +36,30 @@ const persistedReducerPageTabs = persistReducer(
   PageTabsSlice.reducer
 );
 
+const persistedReducerGeth = persistReducer(
+  persistConfig,
+  GethSlice.reducer
+);
+
+const persistedReducerLocalComputer = persistReducer(
+  persistConfig,
+  LocalComputerSlice.reducer
+)
+
 const store = configureStore({
   reducer: {
     [PageTabsSlice.name]: persistedReducerPageTabs,
-    [SnackBarSlice.name]: SnackBarSlice.reducer
+    [GethSlice.name]: persistedReducerGeth,
+    [LocalComputerSlice.name]: persistedReducerLocalComputer,
+    [SnackBarSlice.name]: SnackBarSlice.reducer,
   },
   devTools: true,
   middleware: [thunk],
 });
 
 const makeStore = () => store;
+
+export default store;
 
 export type AppStore = ReturnType<typeof makeStore>;
 export type AppState = ReturnType<AppStore["getState"]>;

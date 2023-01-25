@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "compile": "ts-node solidity/scripts/compile.ts",
-    "deploy": "ts-node solidity/scripts/deploy.ts"
+    "deploy": "ts-node solidity/scripts/deploy.ts",
+    "start:ganache": "npx ganache --chain.networkId=100 --wallet.seed='multiSig' --db='solidity/ganacheDB'  --wallet.accountKeysPath='solidity/ganacheAccounts.json' --port=8545 --chain.chainId=1337 --wallet.totalAccounts=6 --wallet.defaultBalance=999999999990000009999"
   },
   "dependencies": {
     "@emotion/react": "^11.10.5",
