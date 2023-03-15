@@ -354,6 +354,30 @@
     {
         "inputs": [
             {
+                "internalType": "bytes[]",
+                "name": "txDataBatch",
+                "type": "bytes[]"
+            },
+            {
+                "internalType": "address[]",
+                "name": "targetContractAddresses",
+                "type": "address[]"
+            }
+        ],
+        "name": "getTxDataBatch",
+        "outputs": [
+            {
+                "internalType": "bytes",
+                "name": "",
+                "type": "bytes"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
                 "internalType": "address",
                 "name": "computer",
                 "type": "address"

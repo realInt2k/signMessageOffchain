@@ -23,10 +23,24 @@ contract LocalHoarder {
     mapping(address => mapping(uint256 => bool)) computerSignGethBlockCheck;
 
     event proposeNewBatchEvent(bytes txData, uint256 gethBlockNumber);
+    uint256 leader = 0;
+    uint256 noReports = 0;
     event allSignatureReceived(uint256 gethBlockNumber);
 
     constructor(address[] memory _signedComputers) {
         signedComputers = _signedComputers;
+    }
+
+    function getLeader() public view returns(uint256) {
+        return leader;
+    }
+
+    function signalAbnomality(uint256 gethBlock, uint256 compId) public {
+        noReports += 1;
+        if(noReports >= numberOfRegisteredComputer) {
+            leader = (leader + 1) % numberOfRegisteredComputer;
+            noReports = 0;
+        }
     }
 
     function proposeNewBatch(bytes[] memory txDataBatch, address[] memory targetContractAddresses, uint256 gethBlockNumber) public returns (bytes memory)  {
@@ -37,6 +51,11 @@ contract LocalHoarder {
         }
         emit proposeNewBatchEvent(proposalTxData[gethBlockNumber], gethBlockNumber);
         return proposalTxData[gethBlockNumber];
+    }
+
+
+    function getTxDataBatch(bytes[] memory txDataBatch, address[] memory targetContractAddresses) public view returns (bytes memory)  {
+        return abi.encodeWithSelector(verifierClone.executeTransactions.selector, targetContractAddresses, txDataBatch);
     }
 
     function getGethBlocksToBeSend() public view returns(uint256[] memory) {
@@ -88,7 +107,7 @@ contract LocalHoarder {
             return "already Signed";
         }
         computerSignGethBlockCheck[computer][gethBlockNumber] = true;
-
+        // remove this geth block/batch from this computer 
         uint256[] storage blocks = computerToUnsignedGethBlocks[computer];
         for(uint256 i = 0; i < blocks.length; ++i) {
             if(blocks[i] == gethBlockNumber) {
@@ -101,7 +120,6 @@ contract LocalHoarder {
                 break;
             }
         }
-        // TODO: check if this computer alredy sent signature
         curNumberOfSignature[gethBlockNumber] += 1;
         gethBlockNumberToAllSignatures[gethBlockNumber].push(signature(_v, _r, _s));
         if(curNumberOfSignature[gethBlockNumber] == numberOfRegisteredComputer) {

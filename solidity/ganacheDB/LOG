@@ -1,16 +1,30 @@
-2023/01/25-13:08:26.209 672c Recovering log #21
-2023/01/25-13:08:26.233 672c Level-0 table #25: started
-2023/01/25-13:08:26.265 672c Level-0 table #25: 1112277 bytes OK
-2023/01/25-13:08:26.273 672c Delete type=0 #21
-2023/01/25-13:08:26.273 672c Delete type=3 #19
-2023/01/25-13:17:14.956 3bec Compacting 1@0 + 2@1 files
-2023/01/25-13:17:14.996 3bec Generated table #27@0: 6373 keys, 2121447 bytes
-2023/01/25-13:17:15.036 3bec Generated table #28@0: 5935 keys, 2018455 bytes
-2023/01/25-13:17:15.036 3bec Compacted 1@0 + 2@1 files => 4139902 bytes
-2023/01/25-13:17:15.036 3bec compacted to: files[ 0 2 0 0 0 0 0 ]
-2023/01/25-13:17:15.036 3bec Delete type=2 #22
-2023/01/25-13:17:15.044 3bec Delete type=2 #23
-2023/01/25-13:17:15.044 3bec Delete type=2 #25
-2023/01/25-14:02:00.516 3bec Level-0 table #30: started
-2023/01/25-14:02:00.556 3bec Level-0 table #30: 1664653 bytes OK
-2023/01/25-14:02:00.556 3bec Delete type=0 #26
+2023/02/08-17:10:56.315 14dc Recovering log #33
+2023/02/08-17:10:56.326 14dc Level-0 table #35: started
+2023/02/08-17:10:56.350 14dc Level-0 table #35: 723413 bytes OK
+2023/02/08-17:10:56.355 14dc Delete type=0 #33
+2023/02/08-17:10:56.356 14dc Delete type=3 #31
+2023/02/08-18:36:00.925 7570 Compacting 3@0 + 2@1 files
+2023/02/08-18:36:00.990 7570 Generated table #37@0: 6373 keys, 2124046 bytes
+2023/02/08-18:36:01.040 7570 Generated table #38@0: 6088 keys, 2120418 bytes
+2023/02/08-18:36:01.088 7570 Generated table #39@0: 4191 keys, 1593803 bytes
+2023/02/08-18:36:01.089 7570 Compacted 3@0 + 2@1 files => 5838267 bytes
+2023/02/08-18:36:01.090 7570 compacted to: files[ 0 3 0 0 0 0 0 ]
+2023/02/08-18:36:01.090 7570 Delete type=2 #27
+2023/02/08-18:36:01.091 7570 Delete type=2 #28
+2023/02/08-18:36:01.092 7570 Delete type=2 #30
+2023/02/08-18:36:01.092 7570 Delete type=2 #32
+2023/02/08-18:36:01.093 7570 Delete type=2 #35
+2023/02/08-19:12:05.219 7570 Level-0 table #41: started
+2023/02/08-19:12:05.267 7570 Level-0 table #41: 2130022 bytes OK
+2023/02/08-19:12:05.267 7570 Delete type=0 #36
+2023/02/08-19:24:33.057 7570 Compacting 1@0 + 3@1 files
+2023/02/08-19:24:33.105 7570 Generated table #42@0: 6259 keys, 2123537 bytes
+2023/02/08-19:24:33.129 7570 Generated table #43@0: 6233 keys, 2122136 bytes
+2023/02/08-19:24:33.177 7570 Generated table #44@0: 6790 keys, 2127946 bytes
+2023/02/08-19:24:33.193 7570 Generated table #45@0: 691 keys, 574829 bytes
+2023/02/08-19:24:33.193 7570 Compacted 1@0 + 3@1 files => 6948448 bytes
+2023/02/08-19:24:33.193 7570 compacted to: files[ 0 4 0 0 0 0 0 ]
+2023/02/08-19:24:33.193 7570 Delete type=2 #37
+2023/02/08-19:24:33.193 7570 Delete type=2 #38
+2023/02/08-19:24:33.193 7570 Delete type=2 #39
+2023/02/08-19:24:33.193 7570 Delete type=2 #41

@@ -2,7 +2,7 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "D:\\docs\\nodeApps\\signMessageOffchain\\solidity\\contracts\\verifier.sol": {
-      "lastModificationDate": 1674623319130,
+      "lastModificationDate": 1674624376266,
       "contentHash": "78d77cbfc7341ec7fdaa09b47617db2a",
       "sourceName": "contracts/verifier.sol",
       "solcConfig": {
@@ -37,8 +37,8 @@
       ]
     },
     "D:\\docs\\nodeApps\\signMessageOffchain\\solidity\\contracts\\localHoarder.sol": {
-      "lastModificationDate": 1674592654077,
-      "contentHash": "bf83ac13dab95687dec501b5a4d84d7c",
+      "lastModificationDate": 1675852451034,
+      "contentHash": "7c2b786ca06bab401e81b3083cc5b531",
       "sourceName": "contracts/localHoarder.sol",
       "solcConfig": {
         "version": "0.8.13",

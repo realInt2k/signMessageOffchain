@@ -25,6 +25,7 @@ import {
   selectGethState,
   increaseGethState,
   stopProposal,
+  setEvilMode,
 } from "store/gethSlice";
 
 import networkInfo from "solidity/networkInfo.json";
@@ -45,33 +46,66 @@ export const Welcome: NextPage = () => {
   const [toggle, setToggle] = useState<boolean>(true);
   useEffect(() => {
     const unsub = subscribeStoreForComputers();
+    const contract = getContractForComputer(
+      0,
+      networkInfo["ganache"]["TargetContract"]
+    );
+    contract.getA().then((a: any) => {
+      const decodedA = a.map((elem: any) => {
+        return Number(elem);
+      });
+      setArray(decodedA);
+    });
     return () => {
       unsub();
     };
-  });
+  }, []);
   const dispatch = useDispatch();
-
+  const triggerEvilModeButtonText = gethState.triggerEvilMode
+    ? "hacker"
+    : "law-abiding";
   return (
     <TabViewerTemplate header="Test Multisig">
-      <Grid container xs={12}>
-        <Grid xs={5}>
-          <Button 
-            sx={{color:""}}
+      <Grid container>
+        <Grid item xs={6}>
+          <Button
+            sx={{ color: "" }}
             onClick={() => {
-              for(let i = 0; i < 5; ++i) {
+              for (let i = 0; i < 5; ++i) {
                 toggle ? dispatch(turnOn(i)) : dispatch(turnOff(i));
               }
               setToggle(!toggle);
             }}
           >
             <PowerSettingsNewIcon />
-            <span style={{paddingLeft:10}}>toggle all</span>
+            <span style={{ paddingLeft: 10 }}>
+              toggle all to {toggle ? "ON" : "OFF"}
+            </span>
           </Button>
-          <Block50 height={10}/>
+          <Button
+            onClick={() => {
+              dispatch(setEvilMode(!gethState.triggerEvilMode));
+            }}
+          >
+            <div>
+              Mode:{" "}
+              {!gethState.triggerEvilMode ? (
+                <span style={{ color: "lime" }}>
+                  {triggerEvilModeButtonText} 😇
+                </span>
+              ) : (
+                <span style={{ color: "red" }}>
+                  {triggerEvilModeButtonText} 😈
+                </span>
+              )}
+            </div>
+          </Button>
+          <Block50 height={10} />
           <Stack spacing={3}>
             {[0, 1, 2, 3, 4].map((elem, index) => {
+              const color = !computerState.isRunning[elem] ? "darkred" : "lime";
               return (
-                <div key={index}>
+                <Grid key={index} sx={{ backgroundColor: { color } }}>
                   🖥️ Computer {elem}
                   <Block50 height={12} />
                   <div id="append">
@@ -155,28 +189,26 @@ export const Welcome: NextPage = () => {
                     </Grid>
                   </div>
                   <Block50 height={3} />
-                  <IconButton
-                    onClick={() => {
-                      !computerState.isRunning[elem]
-                        ? dispatch(turnOn(elem))
-                        : dispatch(turnOff(elem));
-                    }}
-                  >
-                    <PowerSettingsNewIcon />
-                  </IconButton>
-                  <div>
-                    {computerState.isRunning[elem] ? (
-                      <div>on</div>
-                    ) : (
-                      <div>off</div>
-                    )}
-                  </div>
-                </div>
+                  <Stack direction={"row"}>
+                    <IconButton
+                      onClick={() => {
+                        !computerState.isRunning[elem]
+                          ? dispatch(turnOn(elem))
+                          : dispatch(turnOff(elem));
+                      }}
+                    >
+                      <PowerSettingsNewIcon />
+                    </IconButton>
+                    <div>
+                      <Typography variant={"h3"}> , </Typography>
+                    </div>
+                  </Stack>
+                </Grid>
               );
             })}
           </Stack>
         </Grid>
-        <Grid xs={7} justifyContent={"center"}>
+        <Grid item xs={6} justifyContent={"center"}>
           <Typography variant={"h3"}> LOG </Typography>
           <Stack>
             <Stack direction={"row"}>
@@ -223,6 +255,20 @@ export const Welcome: NextPage = () => {
                 })}
               </Stack>
             </Stack>
+            <Block50 height={10} />
+            <Stack spacing={2}>
+              <Typography variant={"h6"}> messages: </Typography>
+              <Stack>
+                {gethState.logs.map((elem, index) => {
+                  return (
+                    <li key={index}>
+                      {gethState.logs[index]}
+                    </li>
+                  );
+                })}
+              </Stack>
+            </Stack>
+
             <Divider />
             <Button
               sx={{ color: "red" }}

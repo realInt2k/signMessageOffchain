@@ -7,6 +7,8 @@ export interface GethState {
   transactions: string[];
   blockLimit: number;
   triggerProposal: boolean;
+  triggerEvilMode: boolean;
+  logs: string[];
 }
 
 // Initial state
@@ -15,7 +17,9 @@ const initialState: GethState = {
   blockCount: 0,
   transactions: [],
   blockLimit: 5,
-  triggerProposal: false
+  triggerProposal: false,
+  triggerEvilMode: false,
+  logs: [],
 };
 
 // Actual Slice
@@ -28,6 +32,8 @@ export const GethSlice = createSlice({
       state.blockCount = initialState.blockCount;
       state.transactions = initialState.transactions;
       state.blockLimit = 5;
+      state.triggerEvilMode = false;
+      state.logs = [];
     },
     // Action to set the authentication status
     increaseGethState(
@@ -49,11 +55,23 @@ export const GethSlice = createSlice({
       action
     ) {
       state.triggerProposal = false;
+    },
+    setEvilMode(
+      state,
+      action:{payload:boolean}
+    ) {
+      state.triggerEvilMode = action.payload;
+    },
+    addGethLog(
+      state,
+      action:{payload:string}
+    ) {
+      state.logs.push(action.payload);
     }
   },
 });
 
-export const { increaseGethState, resetGethState, stopProposal } = GethSlice.actions;
+export const { addGethLog, setEvilMode, increaseGethState, resetGethState, stopProposal } = GethSlice.actions;
 
 export const selectGethState = (state: AppState) => {
   return { ...state.geth };

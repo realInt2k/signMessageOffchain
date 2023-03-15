@@ -5,7 +5,7 @@ import store from "store/store";
 
 import abi from "../abis/AllContractsABI.json";
 import networkInfo from "solidity/networkInfo.json";
-import { stopProposal } from "@store/gethSlice";
+import { addGethLog, stopProposal } from "@store/gethSlice";
 import Web3 from "web3";
 import { turnOff } from "@store/localComputersSlice";
 
@@ -49,6 +49,7 @@ let blockLimit: number = 0;
 let gethBlockCount = 0;
 let gethTxCount = 0;
 let triggerProposal: boolean = false;
+let evilMode = false;
 
 export const subscribeStoreForComputers = () => {
   handleStoreChangeForComputers(); // constructor;
@@ -60,6 +61,7 @@ export const subscribeStoreForComputers = () => {
     gethBlockCount = state.geth.blockCount;
     gethTxCount = state.geth.txCount;
     triggerProposal = state.geth.triggerProposal;
+    evilMode = state.geth.triggerEvilMode;
     for (let i = 0; i < state.localComputer.isRunning.length; ++i) {
       if (
         computerRunningState[i] === false &&
@@ -88,12 +90,12 @@ export const doComputerThing = async (
       computerId,
       networkInfo["ganache"]["Verifier"]
     );
-    contractVerifier.on("errorNoSigner",(...args:any)=>{
-      console.log("event errorNoSigner: ", {args})
-    })
-    contractVerifier.on("errorWrongAddress",(...args:any)=>{
-      console.log("event errorWrongAddress: ", {args})
-    })
+    contractVerifier.on("errorNoSigner", (...args: any) => {
+      console.log("event errorNoSigner: ", { args });
+    });
+    contractVerifier.on("errorWrongAddress", (...args: any) => {
+      console.log("event errorWrongAddress: ", { args });
+    });
   }
   // contract.on("proposeNewBatchEvent", (...args:any[]) => {
   //   console.log({ proposeNewBatchEvent: args });
@@ -111,8 +113,14 @@ export const doComputerThing = async (
           i < txDataBatch.length;
           ++i
         ) {
-          txDataBatchToBeSent.push(txDataBatch[i]);
+          if(evilMode)
+            txDataBatchToBeSent.push(txDataBatch[0]);
+          else 
+            txDataBatchToBeSent.push(txDataBatch[i]);
           targetContractAddresses.push(networkInfo["klaytn"]["TargetContract"]);
+        }
+        if(evilMode) {
+          store.dispatch(addGethLog("comp 0: I altered the txDataBatch"));
         }
         console.log({ txDataBatchToBeSent });
         const propose = await contract.proposeNewBatch(
@@ -141,17 +149,13 @@ export const doComputerThing = async (
           // NOW we send this to verifier on REAL network
           //const param = web3.eth.abi.encodeParameter("bytes", txBatchData);
           const param = Web3.utils.sha3(txBatchData);
-          console.log({txBatchData, param})
+          console.log({ txBatchData, param });
           if (contractVerifier) {
-            const verify = await contractVerifier.Verify(
-              param,
-              _v,
-              _r,
-              _s
-            );
-            console.log({verify})
-            if(verify === true) {
+            const verify = await contractVerifier.Verify(param, _v, _r, _s);
+            console.log({ verify });
+            if (verify === true) {
               const sentGethBlock = await contract.sentGethBlock(gethBlock);
+              store.dispatch(addGethLog(`comp 0: verified ${gethBlocksToBeSend} OK`))
               await sentGethBlock.wait();
             } else {
               const reVerify = await contractVerifier.reVerify(
@@ -161,7 +165,7 @@ export const doComputerThing = async (
                 _s
               );
               await reVerify.wait();
-              console.log("turnning comp 0 off")
+              console.log("turnning comp 0 off");
               store.dispatch(turnOff(0));
               contractVerifier?.removeAllListeners();
               return;
@@ -176,10 +180,37 @@ export const doComputerThing = async (
       getComputerAddress(computerId)
     );
     for (let i = 0; i < unsignedGethBlocks.length; ++i) {
+      
       let gethBlock = Number(unsignedGethBlocks[i]);
+
+      // check if it's legit
+      let txDataBatchToBeSent: string[] = [];
+      let targetContractAddresses: string[] = [];
+      for (let i = gethBlock * 5; i < gethBlock * 5 + 5; ++i) {
+        txDataBatchToBeSent.push(txDataBatch[i]);
+        targetContractAddresses.push(networkInfo["klaytn"]["TargetContract"]);
+      }
+      const getTxDataBatch = await contract.getTxDataBatch(
+        txDataBatchToBeSent,
+        targetContractAddresses
+      );
+
       const proposalTxData = await contract.getProposalTxDataFromGethBlock(
         gethBlock
       );
+      // console.log({
+      //   computer: computerId,
+      //   "selfCompiledTxDataBatch": getTxDataBatch,
+      //   checkagainst: getTxDataBatch === proposalTxData,
+      // });
+      if (proposalTxData !== getTxDataBatch && computerId !== 0) {
+        store.dispatch(addGethLog(`comp ${computerId}: proposed txDataBatch is not OK ❌, turning off!`));
+        store.dispatch(turnOff(computerId));
+        return;
+      } else {
+        store.dispatch(addGethLog(`comp ${computerId}: proposed txDataBatch is OK 👍`));
+      }
+      
       const privateKey = getComputerPrivateKey(computerId);
       const { r, s, v } = signMessage(proposalTxData, privateKey);
       try {
@@ -203,10 +234,10 @@ export const doComputerThing = async (
     //   triggerProposal,
     //   unsignedGethBlocks,
     // });
-    await sleep(4000);
+    await sleep(5000);
   }
   contract.removeAllListeners();
-  if(computerId === 0) {
+  if (computerId === 0) {
     contractVerifier?.removeAllListeners();
   }
 };
@@ -220,7 +251,10 @@ function signMessage(message: string, privateKey: string) {
 
   const hashedMessage = Web3.utils.sha3(message);
   // sign hashed message
-  const signatureNoMetamask = web3.eth.accounts.sign(hashedMessage as string, privateKey);
+  const signatureNoMetamask = web3.eth.accounts.sign(
+    hashedMessage as string,
+    privateKey
+  );
 
   const signature = signatureNoMetamask.signature;
 
@@ -228,6 +262,6 @@ function signMessage(message: string, privateKey: string) {
   const r = signature.slice(0, 66);
   const s = "0x" + signature.slice(66, 130);
   const v = parseInt(signature.slice(130, 132), 16);
-  console.log({privateKey, hashedMessage, r, s, v });
+  //console.log({privateKey, hashedMessage, r, s, v });
   return { r, s, v };
 }

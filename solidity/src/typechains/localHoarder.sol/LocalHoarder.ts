@@ -34,13 +34,16 @@ export interface LocalHoarderInterface extends utils.Interface {
     "getAllS(uint256)": FunctionFragment;
     "getAllV(uint256)": FunctionFragment;
     "getGethBlocksToBeSend()": FunctionFragment;
+    "getLeader()": FunctionFragment;
     "getProposalTxDataFromGethBlock(uint256)": FunctionFragment;
+    "getTxDataBatch(bytes[],address[])": FunctionFragment;
     "getUnsignedGethBlocks(address)": FunctionFragment;
     "gethBlockNumberToAllSignatures(uint256,uint256)": FunctionFragment;
     "gethBlocksToBeSend(uint256)": FunctionFragment;
     "proposeNewBatch(bytes[],address[],uint256)": FunctionFragment;
     "sendSignature(address,uint8,bytes32,bytes32,uint256)": FunctionFragment;
     "sentGethBlock(uint256)": FunctionFragment;
+    "signalAbnomality(uint256,uint256)": FunctionFragment;
     "signedComputers(uint256)": FunctionFragment;
   };
 
@@ -56,8 +59,12 @@ export interface LocalHoarderInterface extends utils.Interface {
       | "getAllV(uint256)"
       | "getGethBlocksToBeSend"
       | "getGethBlocksToBeSend()"
+      | "getLeader"
+      | "getLeader()"
       | "getProposalTxDataFromGethBlock"
       | "getProposalTxDataFromGethBlock(uint256)"
+      | "getTxDataBatch"
+      | "getTxDataBatch(bytes[],address[])"
       | "getUnsignedGethBlocks"
       | "getUnsignedGethBlocks(address)"
       | "gethBlockNumberToAllSignatures"
@@ -70,6 +77,8 @@ export interface LocalHoarderInterface extends utils.Interface {
       | "sendSignature(address,uint8,bytes32,bytes32,uint256)"
       | "sentGethBlock"
       | "sentGethBlock(uint256)"
+      | "signalAbnomality"
+      | "signalAbnomality(uint256,uint256)"
       | "signedComputers"
       | "signedComputers(uint256)"
   ): FunctionFragment;
@@ -114,6 +123,11 @@ export interface LocalHoarderInterface extends utils.Interface {
     functionFragment: "getGethBlocksToBeSend()",
     values?: undefined
   ): string;
+  encodeFunctionData(functionFragment: "getLeader", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "getLeader()",
+    values?: undefined
+  ): string;
   encodeFunctionData(
     functionFragment: "getProposalTxDataFromGethBlock",
     values: [PromiseOrValue<BigNumberish>]
@@ -121,6 +135,14 @@ export interface LocalHoarderInterface extends utils.Interface {
   encodeFunctionData(
     functionFragment: "getProposalTxDataFromGethBlock(uint256)",
     values: [PromiseOrValue<BigNumberish>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "getTxDataBatch",
+    values: [PromiseOrValue<BytesLike>[], PromiseOrValue<string>[]]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "getTxDataBatch(bytes[],address[])",
+    values: [PromiseOrValue<BytesLike>[], PromiseOrValue<string>[]]
   ): string;
   encodeFunctionData(
     functionFragment: "getUnsignedGethBlocks",
@@ -189,6 +211,14 @@ export interface LocalHoarderInterface extends utils.Interface {
   encodeFunctionData(
     functionFragment: "sentGethBlock(uint256)",
     values: [PromiseOrValue<BigNumberish>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "signalAbnomality",
+    values: [PromiseOrValue<BigNumberish>, PromiseOrValue<BigNumberish>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "signalAbnomality(uint256,uint256)",
+    values: [PromiseOrValue<BigNumberish>, PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
     functionFragment: "signedComputers",
@@ -230,12 +260,25 @@ export interface LocalHoarderInterface extends utils.Interface {
     functionFragment: "getGethBlocksToBeSend()",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(functionFragment: "getLeader", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "getLeader()",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(
     functionFragment: "getProposalTxDataFromGethBlock",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "getProposalTxDataFromGethBlock(uint256)",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "getTxDataBatch",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "getTxDataBatch(bytes[],address[])",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -284,6 +327,14 @@ export interface LocalHoarderInterface extends utils.Interface {
   ): Result;
   decodeFunctionResult(
     functionFragment: "sentGethBlock(uint256)",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "signalAbnomality",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "signalAbnomality(uint256,uint256)",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -408,6 +459,10 @@ export interface LocalHoarder extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[BigNumber[]]>;
 
+    getLeader(overrides?: CallOverrides): Promise<[BigNumber]>;
+
+    "getLeader()"(overrides?: CallOverrides): Promise<[BigNumber]>;
+
     getProposalTxDataFromGethBlock(
       gethBlock: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
@@ -415,6 +470,18 @@ export interface LocalHoarder extends BaseContract {
 
     "getProposalTxDataFromGethBlock(uint256)"(
       gethBlock: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<[string]>;
+
+    getTxDataBatch(
+      txDataBatch: PromiseOrValue<BytesLike>[],
+      targetContractAddresses: PromiseOrValue<string>[],
+      overrides?: CallOverrides
+    ): Promise<[string]>;
+
+    "getTxDataBatch(bytes[],address[])"(
+      txDataBatch: PromiseOrValue<BytesLike>[],
+      targetContractAddresses: PromiseOrValue<string>[],
       overrides?: CallOverrides
     ): Promise<[string]>;
 
@@ -492,6 +559,18 @@ export interface LocalHoarder extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
+    signalAbnomality(
+      gethBlock: PromiseOrValue<BigNumberish>,
+      compId: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
+
+    "signalAbnomality(uint256,uint256)"(
+      gethBlock: PromiseOrValue<BigNumberish>,
+      compId: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
+
     signedComputers(
       arg0: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
@@ -549,6 +628,10 @@ export interface LocalHoarder extends BaseContract {
 
   "getGethBlocksToBeSend()"(overrides?: CallOverrides): Promise<BigNumber[]>;
 
+  getLeader(overrides?: CallOverrides): Promise<BigNumber>;
+
+  "getLeader()"(overrides?: CallOverrides): Promise<BigNumber>;
+
   getProposalTxDataFromGethBlock(
     gethBlock: PromiseOrValue<BigNumberish>,
     overrides?: CallOverrides
@@ -556,6 +639,18 @@ export interface LocalHoarder extends BaseContract {
 
   "getProposalTxDataFromGethBlock(uint256)"(
     gethBlock: PromiseOrValue<BigNumberish>,
+    overrides?: CallOverrides
+  ): Promise<string>;
+
+  getTxDataBatch(
+    txDataBatch: PromiseOrValue<BytesLike>[],
+    targetContractAddresses: PromiseOrValue<string>[],
+    overrides?: CallOverrides
+  ): Promise<string>;
+
+  "getTxDataBatch(bytes[],address[])"(
+    txDataBatch: PromiseOrValue<BytesLike>[],
+    targetContractAddresses: PromiseOrValue<string>[],
     overrides?: CallOverrides
   ): Promise<string>;
 
@@ -633,6 +728,18 @@ export interface LocalHoarder extends BaseContract {
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
+  signalAbnomality(
+    gethBlock: PromiseOrValue<BigNumberish>,
+    compId: PromiseOrValue<BigNumberish>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
+  "signalAbnomality(uint256,uint256)"(
+    gethBlock: PromiseOrValue<BigNumberish>,
+    compId: PromiseOrValue<BigNumberish>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
   signedComputers(
     arg0: PromiseOrValue<BigNumberish>,
     overrides?: CallOverrides
@@ -690,6 +797,10 @@ export interface LocalHoarder extends BaseContract {
 
     "getGethBlocksToBeSend()"(overrides?: CallOverrides): Promise<BigNumber[]>;
 
+    getLeader(overrides?: CallOverrides): Promise<BigNumber>;
+
+    "getLeader()"(overrides?: CallOverrides): Promise<BigNumber>;
+
     getProposalTxDataFromGethBlock(
       gethBlock: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
@@ -697,6 +808,18 @@ export interface LocalHoarder extends BaseContract {
 
     "getProposalTxDataFromGethBlock(uint256)"(
       gethBlock: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<string>;
+
+    getTxDataBatch(
+      txDataBatch: PromiseOrValue<BytesLike>[],
+      targetContractAddresses: PromiseOrValue<string>[],
+      overrides?: CallOverrides
+    ): Promise<string>;
+
+    "getTxDataBatch(bytes[],address[])"(
+      txDataBatch: PromiseOrValue<BytesLike>[],
+      targetContractAddresses: PromiseOrValue<string>[],
       overrides?: CallOverrides
     ): Promise<string>;
 
@@ -771,6 +894,18 @@ export interface LocalHoarder extends BaseContract {
 
     "sentGethBlock(uint256)"(
       gethBlock: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    signalAbnomality(
+      gethBlock: PromiseOrValue<BigNumberish>,
+      compId: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    "signalAbnomality(uint256,uint256)"(
+      gethBlock: PromiseOrValue<BigNumberish>,
+      compId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -850,6 +985,10 @@ export interface LocalHoarder extends BaseContract {
 
     "getGethBlocksToBeSend()"(overrides?: CallOverrides): Promise<BigNumber>;
 
+    getLeader(overrides?: CallOverrides): Promise<BigNumber>;
+
+    "getLeader()"(overrides?: CallOverrides): Promise<BigNumber>;
+
     getProposalTxDataFromGethBlock(
       gethBlock: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
@@ -857,6 +996,18 @@ export interface LocalHoarder extends BaseContract {
 
     "getProposalTxDataFromGethBlock(uint256)"(
       gethBlock: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    getTxDataBatch(
+      txDataBatch: PromiseOrValue<BytesLike>[],
+      targetContractAddresses: PromiseOrValue<string>[],
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    "getTxDataBatch(bytes[],address[])"(
+      txDataBatch: PromiseOrValue<BytesLike>[],
+      targetContractAddresses: PromiseOrValue<string>[],
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -931,6 +1082,18 @@ export interface LocalHoarder extends BaseContract {
 
     "sentGethBlock(uint256)"(
       gethBlock: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
+    signalAbnomality(
+      gethBlock: PromiseOrValue<BigNumberish>,
+      compId: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
+    "signalAbnomality(uint256,uint256)"(
+      gethBlock: PromiseOrValue<BigNumberish>,
+      compId: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
@@ -996,6 +1159,10 @@ export interface LocalHoarder extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    getLeader(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    "getLeader()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
     getProposalTxDataFromGethBlock(
       gethBlock: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
@@ -1003,6 +1170,18 @@ export interface LocalHoarder extends BaseContract {
 
     "getProposalTxDataFromGethBlock(uint256)"(
       gethBlock: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    getTxDataBatch(
+      txDataBatch: PromiseOrValue<BytesLike>[],
+      targetContractAddresses: PromiseOrValue<string>[],
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    "getTxDataBatch(bytes[],address[])"(
+      txDataBatch: PromiseOrValue<BytesLike>[],
+      targetContractAddresses: PromiseOrValue<string>[],
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -1077,6 +1256,18 @@ export interface LocalHoarder extends BaseContract {
 
     "sentGethBlock(uint256)"(
       gethBlock: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
+    signalAbnomality(
+      gethBlock: PromiseOrValue<BigNumberish>,
+      compId: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
+    "signalAbnomality(uint256,uint256)"(
+      gethBlock: PromiseOrValue<BigNumberish>,
+      compId: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
